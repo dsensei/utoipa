@@ -820,6 +820,7 @@ impl<'c> ComponentSchema {
                             quote_spanned! {type_path.span()=>
                                 utoipa::openapi::schema::AllOfBuilder::new()
                                     #nullable
+                                    #description_stream
                                     .item(<#type_path as utoipa::ToSchema>::schema().1)
                                     #default
                             }
@@ -842,6 +843,7 @@ impl<'c> ComponentSchema {
                             quote! {
                                 utoipa::openapi::schema::AllOfBuilder::new()
                                     #nullable
+                                    #description_stream
                                     .item(utoipa::openapi::Ref::from_schema_name(#name))
                                     #default
                             }
