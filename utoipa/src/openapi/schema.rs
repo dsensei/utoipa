@@ -1067,6 +1067,8 @@ pub struct Ref {
     /// Reference location of the actual component.
     #[serde(rename = "$ref")]
     pub ref_location: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
 }
 
 impl Ref {
@@ -1075,6 +1077,7 @@ impl Ref {
     pub fn new<I: Into<String>>(ref_location: I) -> Self {
         Self {
             ref_location: ref_location.into(),
+            description: None,
         }
     }
 
@@ -1088,6 +1091,10 @@ impl Ref {
     /// references the reusable response.
     pub fn from_response_name<I: Into<String>>(response_name: I) -> Self {
         Self::new(format!("#/components/responses/{}", response_name.into()))
+    }
+
+    pub fn description<I: Into<String>>(mut self, description: Option<I>) -> Self {
+        set_value!(self description description.map(|description| description.into()))
     }
 
     to_array_builder!();

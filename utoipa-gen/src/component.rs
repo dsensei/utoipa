@@ -849,7 +849,7 @@ impl<'c> ComponentSchema {
                             }
                         } else {
                             quote! {
-                                utoipa::openapi::Ref::from_schema_name(#name)
+                                utoipa::openapi::Ref::from_schema_name(#name)#description_stream
                             }
                         };
 
